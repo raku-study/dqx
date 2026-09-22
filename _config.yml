@@ -1,0 +1,13 @@
+title: DQX関連のページ
+remote_theme: just-the-docs/just-the-docs
+permalink: /:basename.html
+
+# 検索機能を有効にする設定
+search_enabled: false # 無効にした
+search:
+  tokenizer_separator: /[\s\-]+/  # 検索ワードを区切るルール（日本語検索を安定させるため）
+
+# 検索データ生成の制限を緩和する設定
+json:
+  high_lighting: false
+
