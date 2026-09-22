@@ -11,3 +11,5 @@ search:
 json:
   high_lighting: false
 
+# ナビゲーションの階層を最初からすべて開いた状態にする
+nav_fold: false
