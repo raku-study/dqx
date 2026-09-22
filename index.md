@@ -1,8 +1,7 @@
 ---
 layout: default
 title: ホーム
-nav_order: 1
-
+nav_exclude: true
 ---
 
 # ようこそ！
