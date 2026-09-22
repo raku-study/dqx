@@ -11,7 +11,7 @@
 
 <!-- スライドトグルメニュー用CSS & JS -->
 <style>
-  /* サイドバーのアニメーション設定 */
+  /* アニメーションとレイアウト調整 */
   .side-bar {
     transition: transform 0.3s ease !important;
   }
@@ -19,12 +19,12 @@
     transition: margin-left 0.3s ease, max-width 0.3s ease !important;
   }
 
-  /* トグルボタン（固定配置） */
-  .sidebar-toggle-btn {
+  /* トグルボタンの基本スタイル（初期状態） */
+  #custom-sidebar-toggle {
     position: fixed !important;
     top: 12px;
-    left: 240px; /* 通常時のサイドバー内の右上に配置 */
-    z-index: 99999 !important;
+    left: 240px;
+    z-index: 999999 !important;
     width: 32px;
     height: 32px;
     background-color: #ffffff;
@@ -37,27 +37,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     transition: left 0.3s ease, background-color 0.2s;
   }
 
-  .sidebar-toggle-btn:hover {
+  #custom-sidebar-toggle:hover {
     background-color: #f2f3f5;
   }
 
-  /* --- 折りたたみ時のスタイル（PC表示） --- */
+  /* PC表示で折りたたんだ時のスタイル */
   @media (min-width: 50rem) {
-    /* サイドバーを左外側にスライド（完全隠し） */
     body.sidebar-collapsed .side-bar {
       transform: translateX(-100%) !important;
     }
 
-    /* ボタンだけ画面左端に残す */
-    body.sidebar-collapsed .sidebar-toggle-btn {
+    body.sidebar-collapsed #custom-sidebar-toggle {
       left: 10px !important;
     }
 
-    /* メインコンテンツを左いっぱいに広げる */
     body.sidebar-collapsed .main {
       margin-left: 0 !important;
       max-width: 100% !important;
@@ -66,22 +63,33 @@
 </style>
 
 <script>
-  window.addEventListener('load', function() {
-    if (document.querySelector('.sidebar-toggle-btn')) return;
+  (function() {
+    function initToggle() {
+      if (document.getElementById('custom-sidebar-toggle')) return;
 
-    // ボタンの生成
-    const button = document.createElement("button");
-    button.className = "sidebar-toggle-btn";
-    button.innerHTML = "◁";
-    button.setAttribute("aria-label", "Toggle Sidebar");
+      var btn = document.createElement('button');
+      btn.id = 'custom-sidebar-toggle';
+      btn.innerHTML = '◁';
+      btn.setAttribute('aria-label', 'Toggle Sidebar');
 
-    // body直下に安全に追加
-    document.body.appendChild(button);
+      btn.onclick = function() {
+        var collapsed = document.body.classList.toggle('sidebar-collapsed');
+        btn.innerHTML = collapsed ? '▷' : '◁';
+      };
 
-    // クリックイベント
-    button.addEventListener("click", function() {
-      const isCollapsed = document.body.classList.toggle("sidebar-collapsed");
-      button.innerHTML = isCollapsed ? "▷" : "◁";
-    });
-  });
+      if (document.body) {
+        document.body.appendChild(btn);
+      } else {
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.appendChild(btn);
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initToggle);
+    } else {
+      initToggle();
+    }
+  })();
 </script>
