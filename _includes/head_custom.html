@@ -1,26 +1,26 @@
 <style>
   /* トグルボタンのスタイリング */
   .sidebar-toggle-btn {
-    position: fixed;
-    top: 12px;
-    left: 12px;
-    z-index: 100;
-    padding: 6px 12px;
-    background-color: var(--btn-primary-color, #7253ed);
-    color: #fff;
+    position: fixed !important;
+    top: 12px !important;
+    right: 12px !important; /* 右上に配置して見やすくします */
+    z-index: 99999 !important;
+    padding: 8px 14px;
+    background-color: #7253ed !important;
+    color: #ffffff !important;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 
-  /* サイドバーが非表示（折りたたみ）状態の指定 */
+  /* 非表示状態のスタイル */
   body.sidebar-collapsed .side-bar {
     display: none !important;
   }
 
-  /* サイドバーが消えた分、メインコンテンツの余白を詰める */
   body.sidebar-collapsed .main {
     margin-left: 0 !important;
     max-width: 100% !important;
@@ -28,19 +28,19 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // トグルボタン要素を作成
-  const button = document.createElement("button");
-  button.className = "sidebar-toggle-btn";
-  button.innerHTML = "☰ メニュー";
-  button.setAttribute("aria-label", "Toggle Sidebar");
+  window.addEventListener('DOMContentLoaded', function() {
+    // 既にボタンが存在する場合は追加しない
+    if (document.querySelector('.sidebar-toggle-btn')) return;
 
-  // ボタンをページ本体に追加
-  document.body.appendChild(button);
+    const button = document.createElement("button");
+    button.className = "sidebar-toggle-btn";
+    button.innerHTML = "☰ メニュー";
+    button.setAttribute("aria-label", "Toggle Sidebar");
 
-  // クリック時の処理（非表示クラスの付け外し）
-  button.addEventListener("click", function() {
-    document.body.classList.toggle("sidebar-collapsed");
+    document.body.appendChild(button);
+
+    button.addEventListener("click", function() {
+      document.body.classList.toggle("sidebar-collapsed");
+    });
   });
-});
 </script>
