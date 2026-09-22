@@ -1,9 +1,17 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ page.title }} -- {{ site.title }}</title>
+
+<link rel="stylesheet" href="{{ '/assets/css/just-the-docs-default.css' | relative_url }}">
+
+<!-- トグルボタン用カスタムCSS & JS -->
 <style>
-  /* トグルボタンのスタイリング */
   .sidebar-toggle-btn {
     position: fixed !important;
     top: 12px !important;
-    right: 12px !important; /* 右上に配置して見やすくします */
+    right: 12px !important;
     z-index: 99999 !important;
     padding: 8px 14px;
     background-color: #7253ed !important;
@@ -16,7 +24,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 
-  /* 非表示状態のスタイル */
   body.sidebar-collapsed .side-bar {
     display: none !important;
   }
@@ -29,7 +36,6 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', function() {
-    // 既にボタンが存在する場合は追加しない
     if (document.querySelector('.sidebar-toggle-btn')) return;
 
     const button = document.createElement("button");

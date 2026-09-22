@@ -2,10 +2,6 @@ title: DQX関連のページ
 remote_theme: just-the-docs/just-the-docs
 permalink: /:basename.html
 
-# GitHub Pages用のURL・サブディレクトリ設定
-url: "https://raku-study.github.io"
-baseurl: "/dqx"
-
 # 検索機能を有効にする設定
 search_enabled: false # 無効にした
 search:
