@@ -9,84 +9,78 @@
 <script src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/just-the-docs.js' | relative_url }}"></script>
 
-<!-- トグルスライドメニュー用カスタムCSS & JS -->
+<!-- スライドトグルメニュー用CSS & JS -->
 <style>
-  /* アニメーションとレイアウト調整の基本設定 */
+  /* サイドバーのアニメーション設定 */
   .side-bar {
-    transition: transform 0.3s ease, margin-left 0.3s ease !important;
-    position: fixed !important;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100 !important;
+    transition: transform 0.3s ease !important;
   }
-
   .main {
-    transition: margin-left 0.3s ease !important;
+    transition: margin-left 0.3s ease, max-width 0.3s ease !important;
   }
 
-  /* 折りたたみトグルボタンのスタイル */
+  /* トグルボタン（固定配置） */
   .sidebar-toggle-btn {
-    position: absolute;
+    position: fixed !important;
     top: 12px;
-    right: 12px;
-    z-index: 101;
+    left: 240px; /* 通常時のサイドバー内の右上に配置 */
+    z-index: 99999 !important;
     width: 32px;
     height: 32px;
-    background-color: #f5f6fa;
-    color: #333;
+    background-color: #ffffff;
+    color: #333333;
     border: 1px solid #dcdfe6;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: background-color 0.2s, right 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: left 0.3s ease, background-color 0.2s;
   }
 
   .sidebar-toggle-btn:hover {
-    background-color: #e4e7ed;
+    background-color: #f2f3f5;
   }
 
-  /* --- サイドバーが折りたたまれた状態（PC表示） --- */
+  /* --- 折りたたみ時のスタイル（PC表示） --- */
   @media (min-width: 50rem) {
-    /* サイドバー本体を左外側にスライド（ボタンの幅+余白分を残して隠す） */
+    /* サイドバーを左外側にスライド（完全隠し） */
     body.sidebar-collapsed .side-bar {
-      transform: translateX(calc(-100% + 44px)) !important;
+      transform: translateX(-100%) !important;
     }
 
-    /* ボタン位置を調整して開閉アイコンを反転 */
+    /* ボタンだけ画面左端に残す */
     body.sidebar-collapsed .sidebar-toggle-btn {
-      right: 6px !important;
+      left: 10px !important;
     }
 
-    /* メインコンテンツの位置を詰めて広く使う */
+    /* メインコンテンツを左いっぱいに広げる */
     body.sidebar-collapsed .main {
-      margin-left: 44px !important;
-      max-width: calc(100% - 44px) !important;
+      margin-left: 0 !important;
+      max-width: 100% !important;
     }
   }
 </style>
 
 <script>
-  window.addEventListener('DOMContentLoaded', function() {
-    const sideBar = document.querySelector('.side-bar');
-    if (!sideBar || document.querySelector('.sidebar-toggle-btn')) return;
+  window.addEventListener('load', function() {
+    if (document.querySelector('.sidebar-toggle-btn')) return;
 
-    // トグルボタンを作成してサイドバー内に挿入
+    // ボタンの生成
     const button = document.createElement("button");
     button.className = "sidebar-toggle-btn";
     button.innerHTML = "◁";
     button.setAttribute("aria-label", "Toggle Sidebar");
 
-    sideBar.appendChild(button);
+    // body直下に安全に追加
+    document.body.appendChild(button);
 
-    // クリック時の開閉処理
+    // クリックイベント
     button.addEventListener("click", function() {
       const isCollapsed = document.body.classList.toggle("sidebar-collapsed");
-      // アイコンを「◁（たたむ）」と「▷（ひらく）」で切り替え
       button.innerHTML = isCollapsed ? "▷" : "◁";
     });
   });
