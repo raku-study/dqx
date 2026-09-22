@@ -4,7 +4,10 @@
 
 <title>{{ page.title }} -- {{ site.title }}</title>
 
+<!-- テーマ標準のCSS & JS の読み込み（これがメニュー開閉に必須です） -->
 <link rel="stylesheet" href="{{ '/assets/css/just-the-docs-default.css' | relative_url }}">
+<script src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/just-the-docs.js' | relative_url }}"></script>
 
 <!-- トグルボタン用カスタムCSS & JS -->
 <style>
