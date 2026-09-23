@@ -1,15 +1,23 @@
-/* --- 聖守護者マトリクス表などのテーブル余白調整 --- */
+/* --- テーブルの列幅を文字サイズに合わせて最小化する設定 --- */
 
-/* テーブル全体の幅を合わせ、文字サイズを少し調整 */
+/* 1. テーブル全体の自動レイアウトを解除し、各セルの内容量に応じた幅にする */
 .main-content table {
   width: 100%;
-  max-width: 100%;
-  font-size: 0.85rem; 
+  table-layout: auto; /* 各列が必要最低限の幅になるようにする */
+  font-size: 0.85rem;
 }
 
-/* セルの上下左右のパディングを狭くして余白を排除する */
-.main-content th,
-.main-content td {
-  padding: 5px 6px !important;
-  white-space: nowrap; /* 記号（◎、〇、△）の不自然な折り返しを防ぐ */
+/* 2. 耐性アイコンの列（2列目以降）は文字幅ギリギリまで縮める */
+.main-content th:not(:first-child):not(:last-child),
+.main-content td:not(:first-child):not(:last-child) {
+  width: 1%;           */* 自動的に最小幅に縮ませるテクニック */
+  white-space: nowrap; /* 記号が折り返されないようにする */
+  text-align: center;  /* 記号を中央揃えにする */
+  padding: 4px 5px !important; /* パディングもさらにタイトにする */
+}
+
+/* 3. 1列目（ボス名）と最後の列（備考）は十分なスペースを確保する */
+.main-content th:first-child,
+.main-content td:first-child {
+  white-space: nowrap; /* ボス名が変に改行されないようにする */
 }
