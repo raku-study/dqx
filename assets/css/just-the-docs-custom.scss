@@ -1,0 +1,18 @@
+---
+---
+
+/* --- 聖守護者マトリクス表などのテーブル余白調整 --- */
+
+/* テーブル全体の幅を合わせ、文字サイズを少し調整 */
+.main-content table {
+  width: 100%;
+  max-width: 100%;
+  font-size: 0.85rem; 
+}
+
+/* セルの上下左右のパディングを狭くして余白を排除する */
+.main-content th,
+.main-content td {
+  padding: 5px 6px !important;
+  white-space: nowrap; /* 記号（◎、〇、△）の不自然な折り返しを防ぐ */
+}
