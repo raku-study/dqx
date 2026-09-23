@@ -1,23 +1,35 @@
-/* --- テーブルの列幅を文字サイズに合わせて最小化する設定 --- */
+/* --- 聖守護者マトリクス表の列幅を限界まで詰める設定 --- */
 
-/* 1. テーブル全体の自動レイアウトを解除し、各セルの内容量に応じた幅にする */
+/* テーブル全体のレイアウトを固定にする */
 .main-content table {
-  width: 100%;
-  table-layout: auto; /* 各列が必要最低限の幅になるようにする */
-  font-size: 0.85rem;
+  width: auto !important; /* 全体を引き伸ばさず、中身に合わせる */
+  max-width: 100%;
+  table-layout: fixed;   /* 列幅の自動均等割付を無効化し、指定幅を優先させる */
+  font-size: 0.8rem;
 }
 
-/* 2. 耐性アイコンの列（2列目以降）は文字幅ギリギリまで縮める */
-.main-content th:not(:first-child):not(:last-child),
-.main-content td:not(:first-child):not(:last-child) {
-  width: 1%;           */* 自動的に最小幅に縮ませるテクニック */
-  white-space: nowrap; /* 記号が折り返されないようにする */
-  text-align: center;  /* 記号を中央揃えにする */
-  padding: 4px 5px !important; /* パディングもさらにタイトにする */
-}
-
-/* 3. 1列目（ボス名）と最後の列（備考）は十分なスペースを確保する */
+/* 1列目（ボス名）の幅を固定 */
 .main-content th:first-child,
 .main-content td:first-child {
-  white-space: nowrap; /* ボス名が変に改行されないようにする */
+  width: 170px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* 2列目以降（耐性アイコンの列）の幅を「マヒ」などの文字が収まる最小限のピクセル数に強制固定 */
+.main-content th:not(:first-child):not(:last-child),
+.main-content td:not(:first-child):not(:last-child) {
+  width: 42px !important;  /* 文字と記号がギリギリ入る幅に固定 */
+  min-width: 42px !important;
+  max-width: 42px !important;
+  padding: 4px 2px !important;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 最後の列（備考欄） */
+.main-content th:last-child,
+.main-content td:last-child {
+  min-width: 200px;
+  text-align: left;
 }
