@@ -1,35 +1,36 @@
-/* --- 聖守護者マトリクス表の列幅を限界まで詰める設定 --- */
+/* --- 特定のクラスが付いた耐性マトリクス表だけに適用する設定 --- */
 
-/* テーブル全体のレイアウトを固定にする */
-.main-content table {
-  width: auto !important; /* 全体を引き伸ばさず、中身に合わせる */
+/* Markdownのカスタムクラスやテーブルクラスを指定 */
+.markdown-table-compact,
+table.compact-table {
+  width: auto !important;
   max-width: 100%;
-  table-layout: fixed;   /* 列幅の自動均等割付を無効化し、指定幅を優先させる */
+  table-layout: fixed;
   font-size: 0.8rem;
-}
 
-/* 1列目（ボス名）の幅を固定 */
-.main-content th:first-child,
-.main-content td:first-child {
-  width: 170px;
-  white-space: nowrap;
-  text-align: left;
-}
+  /* 1列目（ボス名）の幅 */
+  th:first-child,
+  td:first-child {
+    width: 170px;
+    white-space: nowrap;
+    text-align: left;
+  }
 
-/* 2列目以降（耐性アイコンの列）の幅を「マヒ」などの文字が収まる最小限のピクセル数に強制固定 */
-.main-content th:not(:first-child):not(:last-child),
-.main-content td:not(:first-child):not(:last-child) {
-  width: 42px !important;  /* 文字と記号がギリギリ入る幅に固定 */
-  min-width: 42px !important;
-  max-width: 42px !important;
-  padding: 4px 2px !important;
-  text-align: center;
-  white-space: nowrap;
-}
+  /* 2列目以降（耐性アイコンの列）をギュッと詰める */
+  th:not(:first-child):not(:last-child),
+  td:not(:first-child):not(:last-child) {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    padding: 4px 2px !important;
+    text-align: center;
+    white-space: nowrap;
+  }
 
-/* 最後の列（備考欄） */
-.main-content th:last-child,
-.main-content td:last-child {
-  min-width: 200px;
-  text-align: left;
+  /* 最後の列（備考欄） */
+  th:last-child,
+  td:last-child {
+    min-width: 200px;
+    text-align: left;
+  }
 }
